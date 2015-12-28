@@ -50,5 +50,7 @@ group :development do
   
   gem 'simple_form'
   
+  gem 'devise'
+  
 end
 
