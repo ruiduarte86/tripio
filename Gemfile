@@ -54,6 +54,8 @@ group :development do
   
   gem 'gravatarify', '~> 3.0.0'
   
+  gem 'geocoder'
+  
 end
 
 
