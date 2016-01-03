@@ -18,14 +18,19 @@ class ReviewsController < ApplicationController
         format.html { redirect_to place_path(@review.place), notice: "Review created" }
 
       else
-        redirect_to place_path(@review.place), notice: "Something went wrong"
+        format.html { redirect_to place_path(@review.place), notice: "Something went wrong" }
       end
     end
   end
   
   def update
-    @review.update(review_params)
-    respond_with(@review)
+    respond_to do |format|
+      if @review.update(review_params)
+       format.html { redirect_to place_path(@review.place), notice: "Review updated" }
+      else
+        format.html { redirect_to place_path(@review.place), notice: "Something went wrong" }
+      end
+    end
   end
 
   def destroy
@@ -39,6 +44,6 @@ class ReviewsController < ApplicationController
     end
 
     def review_params
-      params.require(:review).permit(:place_id, :content)
+      params.require(:review).permit(:place_id, :content, :score)
     end
 end
