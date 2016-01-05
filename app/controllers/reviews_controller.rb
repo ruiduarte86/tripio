@@ -2,8 +2,6 @@ class ReviewsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_review, only: [:edit, :update, :destroy]
 
-  respond_to :html
-
   def edit
     @place = @review.place
   end
@@ -34,17 +32,22 @@ class ReviewsController < ApplicationController
   end
 
   def destroy
+    @review = Review.find(params[:id])
     @review.destroy
-    respond_with(@review)
+    respond_to do |format|
+      format.html { redirect_to places_url, notice: 'Review was successfully destroyed.' }
+    end  
   end
 
   private
-    def set_review
+  
+  def set_review
       @review = Review.find(params[:id])
-    end
+  end
 
-    def review_params
+  def review_params
       params.require(:review).permit(:place_id, :content, :score)
-    end
-    
-end
+  end
+
+end 
+
